@@ -29,7 +29,10 @@ interface ExerciseResults {
   average: number;
 }
 
-function calculateExercises(hours: number[], target: number): ExerciseResults {
+export function calculateExercises(
+  hours: number[],
+  target: number
+): ExerciseResults {
   // Length of input array
   const periodLength = hours.length;
   // Number of days with > 0 hours
@@ -63,14 +66,16 @@ function calculateExercises(hours: number[], target: number): ExerciseResults {
 
 // console.log(calculateExercises([3, 0, 2, 4.5, 0, 3, 1], 2));
 
-try {
-  console.log(process.argv);
-  const { hours, target } = parseArguments(process.argv);
-  console.log(calculateExercises(hours, target));
-} catch (error: unknown) {
-  let errorMessage = 'Something bad happened.';
-  if (error instanceof Error) {
-    errorMessage += ' Error: ' + error.message;
+if (require.main === module) {
+  try {
+    console.log(process.argv);
+    const { hours, target } = parseArguments(process.argv);
+    console.log(calculateExercises(hours, target));
+  } catch (error: unknown) {
+    let errorMessage = 'Something bad happened.';
+    if (error instanceof Error) {
+      errorMessage += ' Error: ' + error.message;
+    }
+    console.log(errorMessage);
   }
-  console.log(errorMessage);
 }
