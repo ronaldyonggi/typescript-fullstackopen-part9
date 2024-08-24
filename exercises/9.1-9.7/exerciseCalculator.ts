@@ -3,7 +3,7 @@ interface ExerciseInput {
   target: number;
 }
 
-export const parseArguments = (args: string[]): ExerciseInput => {
+const parseArguments = (args: string[]): ExerciseInput => {
   const hours: number[] = [];
   if (args.length < 4) throw new Error('Not enough arguments');
   for (let i = 3; i < args.length; i++) {
