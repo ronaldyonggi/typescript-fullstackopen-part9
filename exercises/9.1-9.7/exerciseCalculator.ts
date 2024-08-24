@@ -3,7 +3,7 @@ interface ExerciseInput {
   target: number;
 }
 
-export const parseArguments = (args: string[]): ExerciseInput => {
+const parseArguments = (args: string[]): ExerciseInput => {
   const hours: number[] = [];
   if (args.length < 4) throw new Error('Not enough arguments');
   for (let i = 3; i < args.length; i++) {
@@ -29,7 +29,10 @@ interface ExerciseResults {
   average: number;
 }
 
-function calculateExercises(hours: number[], target: number): ExerciseResults {
+export function calculateExercises(
+  hours: number[],
+  target: number
+): ExerciseResults {
   // Length of input array
   const periodLength = hours.length;
   // Number of days with > 0 hours
@@ -63,14 +66,16 @@ function calculateExercises(hours: number[], target: number): ExerciseResults {
 
 // console.log(calculateExercises([3, 0, 2, 4.5, 0, 3, 1], 2));
 
-try {
-  console.log(process.argv);
-  const { hours, target } = parseArguments(process.argv);
-  console.log(calculateExercises(hours, target));
-} catch (error: unknown) {
-  let errorMessage = 'Something bad happened.';
-  if (error instanceof Error) {
-    errorMessage += ' Error: ' + error.message;
+if (require.main === module) {
+  try {
+    console.log(process.argv);
+    const { hours, target } = parseArguments(process.argv);
+    console.log(calculateExercises(hours, target));
+  } catch (error: unknown) {
+    let errorMessage = 'Something bad happened.';
+    if (error instanceof Error) {
+      errorMessage += ' Error: ' + error.message;
+    }
+    console.log(errorMessage);
   }
-  console.log(errorMessage);
 }
