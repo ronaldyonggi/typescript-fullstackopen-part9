@@ -68,3 +68,4 @@ package-lock.json
 .env
 *.sh
 /patientor/frontend
+**/build
