@@ -1,25 +1,41 @@
 import { useEffect, useState } from 'react';
 import { DiaryEntry } from './utils/types';
-import axios from 'axios';
 import Entry from './components/Entry';
+import diaryService from './services/diaryService';
+import NewEntryForm from './components/NewEntryForm';
+import Notification from './components/Notification';
 
 function App() {
-  const [diaries, setDiaries] = useState<DiaryEntry[]>([]);
+  const [entries, setEntries] = useState<DiaryEntry[]>([]);
+  const [notification, setNotification] = useState<string>('');
+
+  const fetchEntries = async () => {
+    const allEntries = await diaryService.getNonSensitiveEntries();
+    setEntries(allEntries);
+  };
+
+  const showErrorHelper = (message: string) => {
+    setNotification(message);
+    setTimeout(() => {
+      setNotification('');
+    }, 5000);
+  };
 
   useEffect(() => {
-    axios
-      .get<DiaryEntry[]>('http://localhost:3000/api/diaries')
-      .then(({ data }) => setDiaries(data));
+    fetchEntries();
   }, []);
 
   return (
     <>
-      <h1>Diary Entries</h1>
-      {diaries.map((d) => (
-        <Entry key={d.id} entry={d} />
+      <h2>Add new entry</h2>
+      <Notification message={notification} />
+      <NewEntryForm entries={entries} setEntries={setEntries} showErrorHelper={showErrorHelper} />
+      <h2>Diary Entries</h2>
+      {entries.map((e) => (
+        <Entry key={e.id} entry={e} />
       ))}
     </>
-  )
+  );
 }
 
 export default App;
