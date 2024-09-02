@@ -69,3 +69,4 @@ package-lock.json
 *.sh
 /patientor/frontend
 **/build
+/ilari-flight-diaries/backend
