@@ -67,6 +67,5 @@ package-lock.json
 /lib/
 .env
 *.sh
-/patientor/frontend
 **/build
 /ilari-flight-diaries/backend
