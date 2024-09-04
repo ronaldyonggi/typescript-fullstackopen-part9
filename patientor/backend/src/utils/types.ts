@@ -34,6 +34,17 @@ const HealthCheckEntrySchema = BaseEntrySchema.extend({
   healthCheckRating: z.number(),
 });
 
+const OccupationalHealthcareEntrySchema = BaseEntrySchema.extend({
+  type: z.literal('OccupationalHealthcare'),
+  employerName: z.string(),
+  sickLeave: z
+    .object({
+      startDate: z.string().datetime(),
+      endDate: z.string().datetime(),
+    })
+    .optional(),
+});
+
 export type NewPatient = z.infer<typeof NewPatientSchema>;
 export interface Patient extends NewPatient {
   id: string;
