@@ -22,6 +22,18 @@ const BaseEntrySchema = z.object({
   diagnosisCodes: z.array(DiagnosisSchema.shape.code).optional(),
 });
 
+export enum HealthCheckRating {
+  'Healthy' = 0,
+  'LowRisk' = 1,
+  'HighRisk' = 2,
+  'CriticalRisk' = 3,
+}
+
+const HealthCheckEntrySchema = BaseEntrySchema.extend({
+  type: z.literal('HealthCheck'),
+  healthCheckRating: z.number(),
+});
+
 export type NewPatient = z.infer<typeof NewPatientSchema>;
 export interface Patient extends NewPatient {
   id: string;
