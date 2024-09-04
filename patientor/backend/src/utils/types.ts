@@ -55,6 +55,12 @@ const HospitalEntrySchema = BaseEntrySchema.extend({
     .optional(),
 });
 
+const EntrySchema = z.discriminatedUnion('type', [
+  HealthCheckEntrySchema,
+  OccupationalHealthcareEntrySchema,
+  HospitalEntrySchema,
+]);
+
 export type NewPatient = z.infer<typeof NewPatientSchema>;
 export interface Patient extends NewPatient {
   id: string;
