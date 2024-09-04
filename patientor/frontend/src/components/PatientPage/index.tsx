@@ -13,7 +13,8 @@ export default function PatientPage({ patient }: PatientPageProps) {
         {patient.name}
         {patient.gender === 'male' ? <MaleIcon /> : <FemaleIcon />}
       </h3>
-      Occupation: {patient.occupation}
+      <p>SSN: {patient.ssn}</p>
+      <p>Occupation: {patient.occupation}</p>
     </>
   );
 }
