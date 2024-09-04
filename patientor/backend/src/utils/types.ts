@@ -1,5 +1,4 @@
 import { z } from 'zod';
-import { NewPatientSchema } from './utils';
 
 export enum Gender {
   Male = 'male',
@@ -7,11 +6,13 @@ export enum Gender {
   Other = 'other',
 }
 
-export interface Diagnosis {
-  code: string;
-  name: string;
-  latin?: string;
-}
+const DiagnosisSchema = z.object({
+  code: z.string(),
+  name: z.string(),
+  latin: z.string().optional(),
+});
+
+export type Diagnosis = z.infer<typeof DiagnosisSchema>;
 
 export type NewPatient = z.infer<typeof NewPatientSchema>;
 export interface Patient extends NewPatient {
