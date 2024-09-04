@@ -45,6 +45,16 @@ const OccupationalHealthcareEntrySchema = BaseEntrySchema.extend({
     .optional(),
 });
 
+const HospitalEntrySchema = BaseEntrySchema.extend({
+  type: z.literal('Hospital'),
+  discharge: z
+    .object({
+      date: z.string().datetime(),
+      criteria: z.string(),
+    })
+    .optional(),
+});
+
 export type NewPatient = z.infer<typeof NewPatientSchema>;
 export interface Patient extends NewPatient {
   id: string;
