@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import patientService from '../services/patientService';
 import middleware from '../utils/middleware';
-import { NewPatient, Patient } from '../utils/types';
+import { NewEntry, NewPatient, Patient } from '../utils/types';
 
 const router = express.Router();
 
@@ -25,6 +25,21 @@ router.post(
   (req: Request<unknown, unknown, NewPatient>, res: Response<Patient>) => {
     const addedPatient = patientService.addPatient(req.body);
     return res.json(addedPatient);
+  }
+);
+
+router.post(
+  '/:id/entries',
+  middleware.newEntryParser,
+  (req: Request<{ id: string }, unknown, NewEntry>, res: Response<Patient>) => {
+    const id = req.params.id;
+    const newEntry = req.body;
+    const patient = patientService.addEntry(id, newEntry);
+    if (patient) {
+      res.send();
+    } else {
+      res.sendStatus(404);
+    }
   }
 );
 

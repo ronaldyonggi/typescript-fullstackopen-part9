@@ -1,10 +1,19 @@
 import { NextFunction, Request, Response } from 'express';
 import { z } from 'zod';
-import { toNewPatient } from './utils';
+import { toNewEntry, toNewPatient } from './utils';
 
 const newPatientParser = (req: Request, _res: Response, next: NextFunction) => {
   try {
     toNewPatient(req.body);
+    next();
+  } catch (error: unknown) {
+    next(error);
+  }
+};
+
+const newEntryParser = (req: Request, _res: Response, next: NextFunction) => {
+  try {
+    toNewEntry(req.body);
     next();
   } catch (error: unknown) {
     next(error);
@@ -27,4 +36,5 @@ const errorMiddleware = (
 export default {
   newPatientParser,
   errorMiddleware,
+  newEntryParser
 };

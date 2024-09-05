@@ -61,6 +61,16 @@ const EntrySchema = z.discriminatedUnion('type', [
   HospitalEntrySchema,
 ]);
 
+export type Entry = z.infer<typeof EntrySchema>;
+
+export const NewEntrySchema = z.discriminatedUnion('type', [
+  HealthCheckEntrySchema.omit({ id: true }),
+  OccupationalHealthcareEntrySchema.omit({ id: true }),
+  HospitalEntrySchema.omit({ id: true }),
+]);
+
+export type NewEntry = z.infer<typeof NewEntrySchema>;
+
 export const NewPatientSchema = z.object({
   name: z.string(),
   dateOfBirth: z.string().date(),
