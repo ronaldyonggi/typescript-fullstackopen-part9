@@ -97,4 +97,10 @@ const PatientFormValuesSchema = NewPatientSchema.omit({ entries: true });
 
 export type PatientFormValues = z.infer<typeof PatientFormValuesSchema>;
 
+export const assertNever = (value: never): never => {
+  throw new Error(
+    `Unhandled discriminated union member: ${JSON.stringify(value)}`
+  );
+};
+
 // export type PatientFormValues = Omit<Patient, 'id' | 'entries'>;
