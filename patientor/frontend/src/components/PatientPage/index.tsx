@@ -1,7 +1,7 @@
 import { Diagnosis, Patient } from '../../types';
 import MaleIcon from '@mui/icons-material/Male';
 import FemaleIcon from '@mui/icons-material/Female';
-import EntryComponent from './EntryComponent';
+import EntryDetails from './EntryDetails';
 
 interface PatientPageProps {
   patient: Patient;
@@ -19,7 +19,7 @@ export default function PatientPage({ patient, diagnoses }: PatientPageProps) {
       <p>Occupation: {patient.occupation}</p>
       <h3>Entries</h3>
       {patient.entries.map((entry) => (
-        <EntryComponent key={entry.id} entry={entry} diagnoses={diagnoses} />
+        <EntryDetails key={entry.id} entry={entry} diagnoses={diagnoses} />
       ))}
     </>
   );
